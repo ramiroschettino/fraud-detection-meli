@@ -332,17 +332,24 @@ function showToast(type, title, msg) {
 
 // Función para reiniciar todos los datos
 async function resetData() {
-    if (!confirm('¿Estás seguro de reiniciar todos los datos y estadísticas?')) return;
+    if (!confirm('¿Desea borrar todo el historial?')) return;
+
+    // Limpieza instantánea en la UI
+    const tbody = document.getElementById('transactions-table');
+    if (tbody) tbody.innerHTML = '<tr class="empty-row"><td colspan="6">Limpiando...</td></tr>';
+
+    const stats = { total_transactions: 0, fraud_detected: 0, avg_processing_time_ms: 0, transactions_by_status: { approved: 0 } };
+    updateStats(stats);
 
     try {
         const result = await apiCall('/api/fraud/reset', { method: 'POST' });
         if (result && result.status === 'success') {
-            showToast('info', 'Sistema Reiniciado', 'Se han limpiado todas las transacciones y estadísticas');
+            showToast('info', 'Éxito', 'Historial borrado');
             await refreshAll();
         }
     } catch (e) {
         console.error('Reset error:', e);
-        showToast('error', 'Error', 'No se pudo reiniciar el sistema');
+        showToast('error', 'Error', 'No se pudo limpiar en el servidor');
     }
 }
 

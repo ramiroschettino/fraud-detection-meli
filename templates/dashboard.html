@@ -7,7 +7,7 @@
     <title>Sistema de Detección de Fraude | Panel de Control</title>
     <meta name="description" content="Sistema de detección de fraude en tiempo real">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/dashboard.css?v=20260109d">
+    <link rel="stylesheet" href="/static/css/dashboard.css?v=20260109e">
 </head>
 
 <body>
@@ -78,8 +78,7 @@
             <div class="card-header">
                 <h2>📋 Transacciones Recientes</h2>
                 <div class="card-header-actions">
-                    <button class="btn btn-ghost" onclick="refreshAll()">🔄 Refrescar</button>
-                    <button class="btn btn-ghost btn-danger-ghost" onclick="resetData()">🗑️ Reiniciar Datos</button>
+                    <button class="btn btn-ghost btn-danger-ghost" onclick="resetData()">🗑️ Limpiar Historial</button>
                 </div>
             </div>
             <div class="card-body">
@@ -353,26 +352,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Metrics -->
-                <div class="tech-metrics">
-                    <div class="tech-metric">
-                        <span class="metric-value">50K+</span>
-                        <span class="metric-label">Transacciones/segundo</span>
-                    </div>
-                    <div class="tech-metric">
-                        <span class="metric-value">&lt;50ms</span>
-                        <span class="metric-label">Latencia promedio</span>
-                    </div>
-                    <div class="tech-metric">
-                        <span class="metric-value">99.9%</span>
-                        <span class="metric-label">Disponibilidad</span>
-                    </div>
-                    <div class="tech-metric">
-                        <span class="metric-value">18+</span>
-                        <span class="metric-label">Países LATAM</span>
-                    </div>
-                </div>
             </div>
         </section>
     </main>
@@ -442,7 +421,7 @@
     <!-- Toast Notifications -->
     <div class="toast-container" id="toast-container"></div>
 
-    <script src="/static/js/dashboard.js?v=20260109d"></script>
+    <script src="/static/js/dashboard.js?v=20260109e"></script>
 </body>
 
 </html>
