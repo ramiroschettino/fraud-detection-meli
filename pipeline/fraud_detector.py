@@ -71,6 +71,13 @@ class FraudDetector:
         self.fraud_detected = 0
         self.processing_times: List[float] = []
     
+    def reset_stats(self):
+        """Reinicia las estadísticas del detector"""
+        self.total_analyzed = 0
+        self.fraud_detected = 0
+        self.processing_times = []
+        logger.info("Estadísticas del detector reiniciadas")
+
     def analyze(
         self, 
         transaction: Dict,

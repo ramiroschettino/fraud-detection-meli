@@ -147,6 +147,23 @@ async def resolve_alert(
     raise HTTPException(status_code=404, detail="Alerta no encontrada")
 
 
+@router.post("/reset")
+async def reset_system():
+    """
+    Reinicia el sistema completo (transacciones y estadísticas)
+    """
+    from api.routes.transactions import clear_transactions
+    
+    clear_transactions()
+    fraud_detector.reset_stats()
+    
+    # También limpiar alertas locale en este módulo
+    global alerts_db
+    alerts_db.clear()
+    
+    return {"status": "success", "message": "Sistema reiniciado correctamente"}
+
+
 @router.get("/stats", response_model=StatsResponse)
 async def get_stats():
     """

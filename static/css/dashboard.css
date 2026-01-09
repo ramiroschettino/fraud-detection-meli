@@ -207,6 +207,17 @@ body {
     color: var(--text-primary);
 }
 
+.btn-danger-ghost {
+    color: var(--color-danger);
+    opacity: 0.8;
+}
+
+.btn-danger-ghost:hover {
+    background: rgba(239, 68, 68, 0.1) !important;
+    color: var(--color-danger) !important;
+    opacity: 1;
+}
+
 .btn-full {
     width: 100%;
     justify-content: center;

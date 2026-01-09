@@ -7,7 +7,7 @@
     <title>Sistema de Detección de Fraude | Panel de Control</title>
     <meta name="description" content="Sistema de detección de fraude en tiempo real">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/dashboard.css?v=20260109c">
+    <link rel="stylesheet" href="/static/css/dashboard.css?v=20260109d">
 </head>
 
 <body>
@@ -20,10 +20,6 @@
                 <span class="logo-subtitle">Panel de Control</span>
             </div>
             <div class="header-actions">
-                <span class="header-status">
-                    <span class="status-dot"></span>
-                    Sistema Activo
-                </span>
                 <button class="btn btn-primary" onclick="openSimulator()">
                     + Nueva Transacción
                 </button>
@@ -81,7 +77,10 @@
         <section id="transactions" class="card transactions-card">
             <div class="card-header">
                 <h2>📋 Transacciones Recientes</h2>
-                <button class="btn btn-ghost" onclick="refreshData()">🔄 Refrescar</button>
+                <div class="card-header-actions">
+                    <button class="btn btn-ghost" onclick="refreshAll()">🔄 Refrescar</button>
+                    <button class="btn btn-ghost btn-danger-ghost" onclick="resetData()">🗑️ Reiniciar Datos</button>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-container">
@@ -376,68 +375,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- ML Education Section -->
-        <section class="card ml-education-card">
-            <div class="card-header">
-                <h2>🧠 ¿Cómo funciona el Machine Learning?</h2>
-                <span class="badge badge-success">EDUCATIVO</span>
-            </div>
-            <div class="card-body">
-                <div class="ml-steps">
-                    <div class="ml-step">
-                        <div class="ml-step-number">1</div>
-                        <div class="ml-step-content">
-                            <h4>📥 Recolección de Datos</h4>
-                            <p>Se recopilan millones de transacciones históricas, etiquetando cuáles fueron fraudes
-                                confirmados y cuáles legítimas.</p>
-                        </div>
-                    </div>
-                    <div class="ml-step">
-                        <div class="ml-step-number">2</div>
-                        <div class="ml-step-content">
-                            <h4>🔧 Feature Engineering</h4>
-                            <p>Se extraen características: monto, hora, país, velocidad de transacciones, dispositivo,
-                                IP, comportamiento histórico del usuario.</p>
-                        </div>
-                    </div>
-                    <div class="ml-step">
-                        <div class="ml-step-number">3</div>
-                        <div class="ml-step-content">
-                            <h4>🎓 Entrenamiento del Modelo</h4>
-                            <p>El modelo aprende patrones de fraude analizando ejemplos. Algoritmos comunes: Random
-                                Forest, XGBoost, Redes Neuronales.</p>
-                        </div>
-                    </div>
-                    <div class="ml-step">
-                        <div class="ml-step-number">4</div>
-                        <div class="ml-step-content">
-                            <h4>⚡ Predicción en Tiempo Real</h4>
-                            <p>Cada nueva transacción se evalúa en milisegundos, asignando un score de probabilidad de
-                                fraude.</p>
-                        </div>
-                    </div>
-                    <div class="ml-step">
-                        <div class="ml-step-number">5</div>
-                        <div class="ml-step-content">
-                            <h4>🔄 Retroalimentación</h4>
-                            <p>Cuando se confirma un fraude o falso positivo, el modelo se actualiza para mejorar
-                                continuamente.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ml-note">
-                    <span class="ml-note-icon">💡</span>
-                    <div class="ml-note-content">
-                        <strong>En este proyecto:</strong> Usamos un modelo simple basado en reglas + detección de
-                        anomalías.
-                        En producción (MELI), se usan modelos de ML entrenados con millones de transacciones y
-                        actualización continua.
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- Simulator Modal -->
@@ -505,7 +442,7 @@
     <!-- Toast Notifications -->
     <div class="toast-container" id="toast-container"></div>
 
-    <script src="/static/js/dashboard.js?v=20260109c"></script>
+    <script src="/static/js/dashboard.js?v=20260109d"></script>
 </body>
 
 </html>

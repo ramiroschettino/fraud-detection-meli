@@ -36,7 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function apiCall(endpoint, options = {}) {
     try {
-        const response = await fetch(`${API_BASE}${endpoint}`, {
+        // Cache busting para evitar datos viejos
+        const timestamp = Date.now();
+        const separator = endpoint.includes('?') ? '&' : '?';
+        const url = `${API_BASE}${endpoint}${separator}_t=${timestamp}`;
+
+        const response = await fetch(url, {
             headers: { 'Content-Type': 'application/json', ...options.headers },
             ...options
         });
@@ -323,6 +328,22 @@ function showToast(type, title, msg) {
 
     container.appendChild(toast);
     setTimeout(() => toast.remove(), 4000);
+}
+
+// Función para reiniciar todos los datos
+async function resetData() {
+    if (!confirm('¿Estás seguro de reiniciar todos los datos y estadísticas?')) return;
+
+    try {
+        const result = await apiCall('/api/fraud/reset', { method: 'POST' });
+        if (result && result.status === 'success') {
+            showToast('info', 'Sistema Reiniciado', 'Se han limpiado todas las transacciones y estadísticas');
+            await refreshAll();
+        }
+    } catch (e) {
+        console.error('Reset error:', e);
+        showToast('error', 'Error', 'No se pudo reiniciar el sistema');
+    }
 }
 
 function formatNumber(n) {

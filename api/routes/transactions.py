@@ -156,3 +156,9 @@ def get_transactions_db() -> List[Transaction]:
 def add_transaction(tx: Transaction):
     """Helper para agregar transacciones desde otros módulos"""
     transactions_db.append(tx)
+
+
+def clear_transactions():
+    """Helper para limpiar la base de datos de transacciones"""
+    global transactions_db
+    transactions_db.clear()
