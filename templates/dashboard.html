@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Detección de Fraude | Panel de Control</title>
+    <meta name="description" content="Sistema de detección de fraude en tiempo real">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/dashboard.css?v=20260109c">
+</head>
+
+<body>
+    <!-- Header Industrial -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">SISTEMA DE DETECCIÓN DE FRAUDE</span>
+                <span class="logo-divider">|</span>
+                <span class="logo-subtitle">Panel de Control</span>
+            </div>
+            <div class="header-actions">
+                <span class="header-status">
+                    <span class="status-dot"></span>
+                    Sistema Activo
+                </span>
+                <button class="btn btn-primary" onclick="openSimulator()">
+                    + Nueva Transacción
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section with Stats -->
+        <section id="dashboard" class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="total-transactions">0</span>
+                        <span class="stat-label">Transacciones</span>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="approved-count">0</span>
+                        <span class="stat-label">Legítimas</span>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-danger">
+                    <div class="stat-icon">🚨</div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="fraud-count">0</span>
+                        <span class="stat-label">Fraudes</span>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-warning">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="avg-time">0<span class="stat-unit">ms</span></span>
+                        <span class="stat-label">Latencia</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions - Simplified -->
+        <div class="quick-actions">
+            <button class="btn btn-ghost btn-action-legit" onclick="generateLegitTransaction()">✅ Legítima</button>
+            <button class="btn btn-ghost btn-action-fraud" onclick="generateFraudTransaction()">🚨 Fraude</button>
+            <button class="btn btn-ghost btn-action-batch" onclick="generateBatch()">📦 Batch (10)</button>
+        </div>
+
+        <!-- Recent Transactions - Full Width -->
+        <section id="transactions" class="card transactions-card">
+            <div class="card-header">
+                <h2>📋 Transacciones Recientes</h2>
+                <button class="btn btn-ghost" onclick="refreshData()">🔄 Refrescar</button>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Monto</th>
+                                <th>Score</th>
+                                <th>Alertas</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-table">
+                            <tr class="empty-row">
+                                <td colspan="6">Usá los botones para generar transacciones...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fraud Rules Section -->
+        <section class="card rules-card">
+            <div class="card-header">
+                <h2>🔧 Reglas de Detección Activas</h2>
+            </div>
+            <div class="card-body">
+                <div class="rules-grid">
+                    <div class="rule-item">
+                        <div class="rule-icon">💰</div>
+                        <div class="rule-info">
+                            <h4>High Amount</h4>
+                            <p>Detecta montos > 3x el promedio del usuario</p>
+                        </div>
+                        <span class="rule-weight">80%</span>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-icon">⚡</div>
+                        <div class="rule-info">
+                            <h4>Velocity</h4>
+                            <p>Múltiples transacciones en < 1 minuto</p>
+                        </div>
+                        <span class="rule-weight">90%</span>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-icon">🌍</div>
+                        <div class="rule-info">
+                            <h4>Geo Location</h4>
+                            <p>Cambio de país en < 1 hora</p>
+                        </div>
+                        <span class="rule-weight">100%</span>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-icon">🕐</div>
+                        <div class="rule-info">
+                            <h4>Unusual Time</h4>
+                            <p>Transacciones en horarios inusuales</p>
+                        </div>
+                        <span class="rule-weight">50%</span>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-icon">📱</div>
+                        <div class="rule-info">
+                            <h4>New Device</h4>
+                            <p>Dispositivo nunca visto antes</p>
+                        </div>
+                        <span class="rule-weight">70%</span>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-icon">🆕</div>
+                        <div class="rule-info">
+                            <h4>First Transaction</h4>
+                            <p>Cuenta nueva con monto alto</p>
+                        </div>
+                        <span class="rule-weight">60%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section class="card tech-stack-card">
+            <div class="card-header">
+                <h2>🚀 Tech Stack - Arquitectura de Producción</h2>
+                <span class="badge badge-info">MELI-Style</span>
+            </div>
+            <div class="card-body">
+                <p class="tech-intro">Este proyecto simula la arquitectura real de detección de fraude en Mercado Pago,
+                    procesando millones de transacciones en tiempo real.</p>
+
+                <div class="tech-categories">
+                    <!-- Data Processing -->
+                    <div class="tech-category">
+                        <div class="tech-category-header">
+                            <span class="tech-category-icon">⚙️</span>
+                            <h3>Data Processing</h3>
+                        </div>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #E25A1C, #FF8C00);">Sp
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Apache Spark</span>
+                                    <span class="tech-desc">Procesamiento batch de millones de transacciones</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #231F20, #444);">Kf
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Apache Kafka</span>
+                                    <span class="tech-desc">Streaming en tiempo real, ~50K eventos/seg</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #DC382D, #FF6B6B);">Hd
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Hadoop/HDFS</span>
+                                    <span class="tech-desc">Data lake para almacenamiento distribuido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cloud & Infrastructure -->
+                    <div class="tech-category">
+                        <div class="tech-category-header">
+                            <span class="tech-category-icon">☁️</span>
+                            <h3>Cloud & Infrastructure</h3>
+                        </div>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #FF9900, #FFB84D);">
+                                    AWS</div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Amazon Web Services</span>
+                                    <span class="tech-desc">EC2, S3, Lambda, DynamoDB, SageMaker</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #4285F4, #34A853);">
+                                    GCP</div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Google Cloud Platform</span>
+                                    <span class="tech-desc">BigQuery, Spanner, Vertex AI</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #326CE5, #5991E5);">
+                                    K8s</div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Kubernetes</span>
+                                    <span class="tech-desc">Orquestación de microservicios</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Languages & Frameworks -->
+                    <div class="tech-category">
+                        <div class="tech-category-header">
+                            <span class="tech-category-icon">💻</span>
+                            <h3>Languages & Frameworks</h3>
+                        </div>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #3776AB, #4B8BBE);">Py
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Python</span>
+                                    <span class="tech-desc">FastAPI, Pandas, Scikit-learn, PySpark</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #DC322F, #FF5757);">Sc
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Scala</span>
+                                    <span class="tech-desc">Procesamiento distribuido de alto rendimiento</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #00ADD8, #5DC9E2);">Go
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Golang</span>
+                                    <span class="tech-desc">Microservicios de alta performance</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #5382A1, #F89820);">Jv
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Java</span>
+                                    <span class="tech-desc">Spring Boot para APIs enterprise</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Machine Learning -->
+                    <div class="tech-category">
+                        <div class="tech-category-header">
+                            <span class="tech-category-icon">🤖</span>
+                            <h3>Machine Learning</h3>
+                        </div>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #FF6F00, #FFA726);">TF
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">TensorFlow</span>
+                                    <span class="tech-desc">Modelos de detección de anomalías</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #EE4C2C, #FF7043);">PT
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">PyTorch</span>
+                                    <span class="tech-desc">Deep Learning para patrones de fraude</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #F7931E, #FFB74D);">ML
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">MLflow</span>
+                                    <span class="tech-desc">MLOps: versioning, tracking, deployment</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Databases -->
+                    <div class="tech-category">
+                        <div class="tech-category-header">
+                            <span class="tech-category-icon">🗄️</span>
+                            <h3>Databases</h3>
+                        </div>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #336791, #5C9CD8);">PG
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">PostgreSQL</span>
+                                    <span class="tech-desc">Base de datos relacional principal</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #DC382D, #FF6B6B);">Rd
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Redis</span>
+                                    <span class="tech-desc">Cache en memoria, feature store</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #00ED64, #4DB33D);">Mg
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">MongoDB</span>
+                                    <span class="tech-desc">Datos semi-estructurados de eventos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metrics -->
+                <div class="tech-metrics">
+                    <div class="tech-metric">
+                        <span class="metric-value">50K+</span>
+                        <span class="metric-label">Transacciones/segundo</span>
+                    </div>
+                    <div class="tech-metric">
+                        <span class="metric-value">&lt;50ms</span>
+                        <span class="metric-label">Latencia promedio</span>
+                    </div>
+                    <div class="tech-metric">
+                        <span class="metric-value">99.9%</span>
+                        <span class="metric-label">Disponibilidad</span>
+                    </div>
+                    <div class="tech-metric">
+                        <span class="metric-value">18+</span>
+                        <span class="metric-label">Países LATAM</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ML Education Section -->
+        <section class="card ml-education-card">
+            <div class="card-header">
+                <h2>🧠 ¿Cómo funciona el Machine Learning?</h2>
+                <span class="badge badge-success">EDUCATIVO</span>
+            </div>
+            <div class="card-body">
+                <div class="ml-steps">
+                    <div class="ml-step">
+                        <div class="ml-step-number">1</div>
+                        <div class="ml-step-content">
+                            <h4>📥 Recolección de Datos</h4>
+                            <p>Se recopilan millones de transacciones históricas, etiquetando cuáles fueron fraudes
+                                confirmados y cuáles legítimas.</p>
+                        </div>
+                    </div>
+                    <div class="ml-step">
+                        <div class="ml-step-number">2</div>
+                        <div class="ml-step-content">
+                            <h4>🔧 Feature Engineering</h4>
+                            <p>Se extraen características: monto, hora, país, velocidad de transacciones, dispositivo,
+                                IP, comportamiento histórico del usuario.</p>
+                        </div>
+                    </div>
+                    <div class="ml-step">
+                        <div class="ml-step-number">3</div>
+                        <div class="ml-step-content">
+                            <h4>🎓 Entrenamiento del Modelo</h4>
+                            <p>El modelo aprende patrones de fraude analizando ejemplos. Algoritmos comunes: Random
+                                Forest, XGBoost, Redes Neuronales.</p>
+                        </div>
+                    </div>
+                    <div class="ml-step">
+                        <div class="ml-step-number">4</div>
+                        <div class="ml-step-content">
+                            <h4>⚡ Predicción en Tiempo Real</h4>
+                            <p>Cada nueva transacción se evalúa en milisegundos, asignando un score de probabilidad de
+                                fraude.</p>
+                        </div>
+                    </div>
+                    <div class="ml-step">
+                        <div class="ml-step-number">5</div>
+                        <div class="ml-step-content">
+                            <h4>🔄 Retroalimentación</h4>
+                            <p>Cuando se confirma un fraude o falso positivo, el modelo se actualiza para mejorar
+                                continuamente.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ml-note">
+                    <span class="ml-note-icon">💡</span>
+                    <div class="ml-note-content">
+                        <strong>En este proyecto:</strong> Usamos un modelo simple basado en reglas + detección de
+                        anomalías.
+                        En producción (MELI), se usan modelos de ML entrenados con millones de transacciones y
+                        actualización continua.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Simulator Modal -->
+    <div class="modal" id="simulator-modal">
+        <div class="modal-backdrop" onclick="closeSimulator()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚡ Simulador de Transacciones</h3>
+                <button class="modal-close" onclick="closeSimulator()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="transaction-form" onsubmit="submitTransaction(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Usuario ID</label>
+                            <input type="text" id="user_id" value="USR-001" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Monto ($)</label>
+                            <input type="number" id="amount" value="15000" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tipo de Transacción</label>
+                            <select id="transaction_type" required>
+                                <option value="payment">💳 Pago de Servicios</option>
+                                <option value="transfer">💸 Transferencia</option>
+                                <option value="recharge">📱 Recarga</option>
+                                <option value="crypto">₿ Crypto</option>
+                                <option value="qr">📷 Pago QR</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>País</label>
+                            <select id="country" required>
+                                <option value="AR">🇦🇷 Argentina</option>
+                                <option value="BR">🇧🇷 Brasil</option>
+                                <option value="MX">🇲🇽 México</option>
+                                <option value="CO">🇨🇴 Colombia</option>
+                                <option value="CL">🇨🇱 Chile</option>
+                                <option value="US">🇺🇸 Estados Unidos</option>
+                                <option value="NG">🇳🇬 Nigeria</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Device ID</label>
+                            <input type="text" id="device_id" value="DEV-001">
+                        </div>
+                        <div class="form-group">
+                            <label>IP Address</label>
+                            <input type="text" id="ip_address" value="190.220.100.50">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        🔍 Analizar Transacción
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/static/js/dashboard.js?v=20260109c"></script>
+</body>
+
+</html>

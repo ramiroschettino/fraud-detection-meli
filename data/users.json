@@ -1,0 +1,67 @@
+[
+  {
+    "id": "USR-001",
+    "name": "Juan Pérez",
+    "email": "juan.perez@example.com",
+    "avg_transaction_amount": 15000,
+    "transaction_count": 150,
+    "usual_countries": ["AR"],
+    "usual_cities": ["Buenos Aires", "Córdoba"],
+    "usual_devices": ["DEV-001", "DEV-PHONE-1"],
+    "usual_hours": [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    "account_age_days": 365,
+    "risk_score": 0.1
+  },
+  {
+    "id": "USR-002",
+    "name": "María García",
+    "email": "maria.garcia@example.com",
+    "avg_transaction_amount": 25000,
+    "transaction_count": 89,
+    "usual_countries": ["AR", "BR"],
+    "usual_cities": ["Buenos Aires", "São Paulo"],
+    "usual_devices": ["DEV-002", "DEV-PHONE-2"],
+    "usual_hours": [8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+    "account_age_days": 180,
+    "risk_score": 0.15
+  },
+  {
+    "id": "USR-003",
+    "name": "Carlos López",
+    "email": "carlos.lopez@example.com",
+    "avg_transaction_amount": 8000,
+    "transaction_count": 45,
+    "usual_countries": ["AR"],
+    "usual_cities": ["Rosario"],
+    "usual_devices": ["DEV-003"],
+    "usual_hours": [10, 11, 12, 13, 14, 15, 16, 17, 18],
+    "account_age_days": 90,
+    "risk_score": 0.2
+  },
+  {
+    "id": "USR-004",
+    "name": "Ana Martínez",
+    "email": "ana.martinez@example.com",
+    "avg_transaction_amount": 50000,
+    "transaction_count": 320,
+    "usual_countries": ["AR", "MX", "CL"],
+    "usual_cities": ["Buenos Aires", "Ciudad de México", "Santiago"],
+    "usual_devices": ["DEV-001", "DEV-002", "DEV-PHONE-1"],
+    "usual_hours": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+    "account_age_days": 730,
+    "risk_score": 0.05
+  },
+  {
+    "id": "USR-005",
+    "name": "Pedro Rodríguez",
+    "email": "pedro.rodriguez@example.com",
+    "avg_transaction_amount": 12000,
+    "transaction_count": 23,
+    "usual_countries": ["AR"],
+    "usual_cities": ["Buenos Aires"],
+    "usual_devices": ["DEV-PHONE-1"],
+    "usual_hours": [18, 19, 20, 21, 22],
+    "account_age_days": 45,
+    "risk_score": 0.25
+  }
+]
