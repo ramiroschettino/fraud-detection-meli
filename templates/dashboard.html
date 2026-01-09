@@ -7,7 +7,7 @@
     <title>Sistema de Detección de Fraude | Panel de Control</title>
     <meta name="description" content="Sistema de detección de fraude en tiempo real">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/dashboard.css?v=20260109e">
+    <link rel="stylesheet" href="/static/css/dashboard.css?v=20260109g">
 </head>
 
 <body>
@@ -163,15 +163,276 @@
             </div>
         </section>
 
-        <!-- Tech Stack Section -->
+        <!-- Tech Stack Section - Proyecto Demo -->
         <section class="card tech-stack-card">
             <div class="card-header">
-                <h2>🚀 Tech Stack - Arquitectura de Producción</h2>
-                <span class="badge badge-info">MELI-Style</span>
+                <h2>💻 Tech Stack - Este Proyecto Demo</h2>
+                <span class="badge badge-success">En Uso</span>
             </div>
             <div class="card-body">
-                <p class="tech-intro">Este proyecto simula la arquitectura real de detección de fraude en Mercado Pago,
-                    procesando millones de transacciones en tiempo real.</p>
+                <p class="tech-intro">Tecnologías utilizadas en esta demostración para simular un sistema de detección
+                    de fraude.</p>
+
+                <!-- Flow Diagram - Demo -->
+                <div class="flow-diagram">
+                    <div class="flow-node flow-node-start">
+                        <div class="flow-icon">🌐</div>
+                        <span>Dashboard</span>
+                        <small>HTML + JS</small>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node">
+                        <div class="flow-icon">⚡</div>
+                        <span>API</span>
+                        <small>FastAPI</small>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node flow-node-highlight">
+                        <div class="flow-icon">🔍</div>
+                        <span>Analizador</span>
+                        <small>Reglas + Heurísticas</small>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node flow-node-end">
+                        <div class="flow-icon">✅</div>
+                        <span>Decisión</span>
+                        <small>Aprobar / Rechazar</small>
+                    </div>
+                </div>
+
+                <div class="process-steps">
+                    <div class="step">
+                        <span class="step-num">1</span>
+                        <div class="step-content">
+                            <strong>Generación de Datos</strong>
+                            <p>Creamos transacciones "dummy" (falsas) simulando usuarios, montos y dispositivos al azar.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">2</span>
+                        <div class="step-content">
+                            <strong>Envío a API</strong>
+                            <p>La web envía estos datos a nuestra API local hecha en Python (FastAPI).</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">3</span>
+                        <div class="step-content">
+                            <strong>Detección (Scikit-Learn)</strong>
+                            <p>El modelo busca "anomalías": cosas que se salen de lo normal (ej: monto muy alto) sin
+                                reglas fijas.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">4</span>
+                        <div class="step-content">
+                            <strong>Resultado</strong>
+                            <p>Si el modelo o las reglas dicen que es raro, rechazamos la transacción al instante.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-categories tech-categories-compact">
+                    <div class="tech-category">
+                        <div class="tech-category-header">
+                            <span class="tech-category-icon">🐍</span>
+                            <h3>Backend</h3>
+                        </div>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #3776AB, #4B8BBE);">Py
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Python 3.10+</span>
+                                    <span class="tech-desc">Lenguaje principal del proyecto</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #009688, #4DB6AC);">FA
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">FastAPI</span>
+                                    <span class="tech-desc">API REST async de alto rendimiento</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <div class="tech-category-header">
+                            <span class="tech-category-icon">🔍</span>
+                            <h3>Análisis y Lógica</h3>
+                        </div>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #E53935, #FF5252);">RE
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Motor de Reglas</span>
+                                    <span class="tech-desc">6 reglas de negocio configurables</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #F7931E, #FFB74D);">SK
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Scikit-learn</span>
+                                    <span class="tech-desc">Heurísticas de detección (opcional)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <div class="tech-category-header">
+                            <span class="tech-category-icon">🖥️</span>
+                            <h3>Frontend</h3>
+                        </div>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #E34F26, #F06529);">HT
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">HTML5 + CSS3</span>
+                                    <span class="tech-desc">Dashboard interactivo</span>
+                                </div>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #F0DB4F, #F7DF1E);">JS
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">JavaScript</span>
+                                    <span class="tech-desc">Fetch API, DOM manipulation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Section - Producción MELI -->
+        <section class="card tech-stack-card tech-stack-production">
+            <div class="card-header">
+                <h2>🚀 Tech Stack - Producción Mercado Pago</h2>
+                <span class="badge badge-info">Estilo MeLi</span>
+            </div>
+            <div class="card-body">
+                <p class="tech-intro">Arquitectura de producción para procesar millones de transacciones en tiempo real
+                    con alta disponibilidad.</p>
+
+                <!-- Flow Diagram - Production -->
+                <div class="flow-diagram flow-diagram-production">
+                    <div class="flow-row">
+                        <div class="flow-node flow-node-aws">
+                            <div class="flow-icon">☁️</div>
+                            <span>AWS/GCP</span>
+                            <small>Cloud Infrastructure</small>
+                        </div>
+                        <div class="flow-arrow-down">↓</div>
+                    </div>
+                    <div class="flow-row flow-row-main">
+                        <div class="flow-node">
+                            <div class="flow-icon">📥</div>
+                            <span>S3/GCS</span>
+                            <small>Data Lake</small>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-node">
+                            <div class="flow-icon">📨</div>
+                            <span>Kafka</span>
+                            <small>Event Stream</small>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-node flow-node-highlight">
+                            <div class="flow-icon">⚡</div>
+                            <span>Spark</span>
+                            <small>Processing</small>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-node">
+                            <div class="flow-icon">🤖</div>
+                            <span>ML Models</span>
+                            <small>TensorFlow/PyTorch</small>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-node">
+                            <div class="flow-icon">🚀</div>
+                            <span>APIs</span>
+                            <small>Go/Java</small>
+                        </div>
+                    </div>
+                    <div class="flow-row flow-row-bottom">
+                        <div class="flow-node flow-node-small">
+                            <div class="flow-icon">🗄️</div>
+                            <span>Redis</span>
+                        </div>
+                        <div class="flow-node flow-node-small">
+                            <div class="flow-icon">🐘</div>
+                            <span>PostgreSQL</span>
+                        </div>
+                        <div class="flow-node flow-node-small">
+                            <div class="flow-icon">📊</div>
+                            <span>BigQuery</span>
+                        </div>
+                        <div class="flow-node flow-node-small">
+                            <div class="flow-icon">📈</div>
+                            <span>MLflow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="process-steps process-steps-production">
+                    <div class="step">
+                        <span class="step-num">1</span>
+                        <div class="step-content">
+                            <strong>Recepción Masiva (AWS/GCP)</strong>
+                            <p>Usamos la nube para recibir millones de compras simultáneas desde celulares y posnets sin
+                                que el sistema colapse.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">2</span>
+                        <div class="step-content">
+                            <strong>La Tubería (Apache Kafka)</strong>
+                            <p>Todos los datos entran a una "tubería" de alta velocidad que los organiza y evita que se
+                                pierdan si hay picos de tráfico.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">3</span>
+                        <div class="step-content">
+                            <strong>El Historial (S3 / BigQuery)</strong>
+                            <p>Guardamos años de datos históricos en "Data Lakes". La IA estudia esto para aprender
+                                patrones de fraude pasados.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">4</span>
+                        <div class="step-content">
+                            <strong>Cálculo en Vivo (Spark)</strong>
+                            <p>Clusters de computadoras calculan al vuelo: "¿Cuántas veces compró este usuario en los
+                                últimos 5 minutos?".</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">5</span>
+                        <div class="step-content">
+                            <strong>Memoria Flash (Redis)</strong>
+                            <p>Guardamos el perfil del usuario en memoria RAM. Es ultra-rapido consultar acá si el
+                                usuario es confiable.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">6</span>
+                        <div class="step-content">
+                            <strong>Juicio Final (APIs + IA)</strong>
+                            <p>Una API (en Go/Java) consulta a la IA (TensorFlow). Cruzan historial + datos en vivo y
+                                deciden en < 50ms.</p>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="tech-categories">
                     <!-- Data Processing -->
@@ -186,7 +447,7 @@
                                 </div>
                                 <div class="tech-details">
                                     <span class="tech-name">Apache Spark</span>
-                                    <span class="tech-desc">Procesamiento batch de millones de transacciones</span>
+                                    <span class="tech-desc">Batch de millones de transacciones</span>
                                 </div>
                             </div>
                             <div class="tech-item">
@@ -194,7 +455,7 @@
                                 </div>
                                 <div class="tech-details">
                                     <span class="tech-name">Apache Kafka</span>
-                                    <span class="tech-desc">Streaming en tiempo real, ~50K eventos/seg</span>
+                                    <span class="tech-desc">Streaming ~50K eventos/seg</span>
                                 </div>
                             </div>
                             <div class="tech-item">
@@ -202,7 +463,7 @@
                                 </div>
                                 <div class="tech-details">
                                     <span class="tech-name">Hadoop/HDFS</span>
-                                    <span class="tech-desc">Data lake para almacenamiento distribuido</span>
+                                    <span class="tech-desc">Data lake distribuido</span>
                                 </div>
                             </div>
                         </div>
@@ -246,25 +507,9 @@
                     <div class="tech-category">
                         <div class="tech-category-header">
                             <span class="tech-category-icon">💻</span>
-                            <h3>Languages & Frameworks</h3>
+                            <h3>Languages & APIs</h3>
                         </div>
                         <div class="tech-items">
-                            <div class="tech-item">
-                                <div class="tech-logo" style="background: linear-gradient(135deg, #3776AB, #4B8BBE);">Py
-                                </div>
-                                <div class="tech-details">
-                                    <span class="tech-name">Python</span>
-                                    <span class="tech-desc">FastAPI, Pandas, Scikit-learn, PySpark</span>
-                                </div>
-                            </div>
-                            <div class="tech-item">
-                                <div class="tech-logo" style="background: linear-gradient(135deg, #DC322F, #FF5757);">Sc
-                                </div>
-                                <div class="tech-details">
-                                    <span class="tech-name">Scala</span>
-                                    <span class="tech-desc">Procesamiento distribuido de alto rendimiento</span>
-                                </div>
-                            </div>
                             <div class="tech-item">
                                 <div class="tech-logo" style="background: linear-gradient(135deg, #00ADD8, #5DC9E2);">Go
                                 </div>
@@ -281,6 +526,14 @@
                                     <span class="tech-desc">Spring Boot para APIs enterprise</span>
                                 </div>
                             </div>
+                            <div class="tech-item">
+                                <div class="tech-logo" style="background: linear-gradient(135deg, #DC322F, #FF5757);">Sc
+                                </div>
+                                <div class="tech-details">
+                                    <span class="tech-name">Scala</span>
+                                    <span class="tech-desc">Spark jobs distribuidos</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -288,7 +541,7 @@
                     <div class="tech-category">
                         <div class="tech-category-header">
                             <span class="tech-category-icon">🤖</span>
-                            <h3>Machine Learning</h3>
+                            <h3>Machine Learning & MLOps</h3>
                         </div>
                         <div class="tech-items">
                             <div class="tech-item">
@@ -296,7 +549,7 @@
                                 </div>
                                 <div class="tech-details">
                                     <span class="tech-name">TensorFlow</span>
-                                    <span class="tech-desc">Modelos de detección de anomalías</span>
+                                    <span class="tech-desc">Detección de anomalías en tiempo real</span>
                                 </div>
                             </div>
                             <div class="tech-item">
@@ -304,7 +557,7 @@
                                 </div>
                                 <div class="tech-details">
                                     <span class="tech-name">PyTorch</span>
-                                    <span class="tech-desc">Deep Learning para patrones de fraude</span>
+                                    <span class="tech-desc">Deep Learning para patrones</span>
                                 </div>
                             </div>
                             <div class="tech-item">
@@ -312,7 +565,7 @@
                                 </div>
                                 <div class="tech-details">
                                     <span class="tech-name">MLflow</span>
-                                    <span class="tech-desc">MLOps: versioning, tracking, deployment</span>
+                                    <span class="tech-desc">Versioning, tracking, deployment</span>
                                 </div>
                             </div>
                         </div>
@@ -322,7 +575,7 @@
                     <div class="tech-category">
                         <div class="tech-category-header">
                             <span class="tech-category-icon">🗄️</span>
-                            <h3>Databases</h3>
+                            <h3>Databases & Cache</h3>
                         </div>
                         <div class="tech-items">
                             <div class="tech-item">
@@ -330,7 +583,7 @@
                                 </div>
                                 <div class="tech-details">
                                     <span class="tech-name">PostgreSQL</span>
-                                    <span class="tech-desc">Base de datos relacional principal</span>
+                                    <span class="tech-desc">Base de datos transaccional</span>
                                 </div>
                             </div>
                             <div class="tech-item">
@@ -346,7 +599,7 @@
                                 </div>
                                 <div class="tech-details">
                                     <span class="tech-name">MongoDB</span>
-                                    <span class="tech-desc">Datos semi-estructurados de eventos</span>
+                                    <span class="tech-desc">Eventos semi-estructurados</span>
                                 </div>
                             </div>
                         </div>
@@ -421,7 +674,7 @@
     <!-- Toast Notifications -->
     <div class="toast-container" id="toast-container"></div>
 
-    <script src="/static/js/dashboard.js?v=20260109e"></script>
+    <script src="/static/js/dashboard.js?v=20260109g"></script>
 </body>
 
 </html>

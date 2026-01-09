@@ -371,6 +371,12 @@ class FeatureStore:
         # Mantener solo las últimas 1000
         self.transaction_history[user_id] = self.transaction_history[user_id][-1000:]
 
+    def reset(self):
+        """Limpia todo el feature store (usuarios e historial)"""
+        self.user_features.clear()
+        self.transaction_history.clear()
+        logging.info("Feature Store reiniciado")
+
 
 # Singleton para uso global
 feature_store = FeatureStore()

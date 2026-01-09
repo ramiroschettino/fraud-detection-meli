@@ -332,25 +332,40 @@ function showToast(type, title, msg) {
 
 // Función para reiniciar todos los datos
 async function resetData() {
-    if (!confirm('¿Desea borrar todo el historial?')) return;
+    // Pausar el auto-refresh para que no traiga datos viejos
+    if (refreshInterval) {
+        clearInterval(refreshInterval);
+        refreshInterval = null;
+    }
 
     // Limpieza instantánea en la UI
     const tbody = document.getElementById('transactions-table');
     if (tbody) tbody.innerHTML = '<tr class="empty-row"><td colspan="6">Limpiando...</td></tr>';
 
-    const stats = { total_transactions: 0, fraud_detected: 0, avg_processing_time_ms: 0, transactions_by_status: { approved: 0 } };
-    updateStats(stats);
+    // Resetear stats en la UI inmediatamente
+    document.getElementById('total-transactions').textContent = '0';
+    document.getElementById('fraud-count').textContent = '0';
+    document.getElementById('approved-count').textContent = '0';
+    document.getElementById('avg-time').innerHTML = '0<span class="stat-unit">ms</span>';
 
     try {
         const result = await apiCall('/api/fraud/reset', { method: 'POST' });
         if (result && result.status === 'success') {
-            showToast('info', 'Éxito', 'Historial borrado');
-            await refreshAll();
+            showToast('info', 'Listo', 'Historial borrado correctamente');
+            // Mostrar mensaje vacío
+            if (tbody) tbody.innerHTML = '<tr class="empty-row"><td colspan="6">Sin transacciones. Usá los botones para generar.</td></tr>';
+        } else {
+            showToast('error', 'Error', 'No se pudo limpiar');
         }
     } catch (e) {
         console.error('Reset error:', e);
         showToast('error', 'Error', 'No se pudo limpiar en el servidor');
     }
+
+    // Reactivar auto-refresh después de 1 segundo
+    setTimeout(() => {
+        refreshInterval = setInterval(refreshAll, 3000);
+    }, 1000);
 }
 
 function formatNumber(n) {
